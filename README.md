@@ -12,7 +12,9 @@ TODO:
 
       Losts of new songs created. Amalgam of Vacation and x*black.metal.song
       x <- seq(1:10, by=.25)
-      When does SVM label it `go.go`?
+      When does SVM label it `is.black.metal`?
       Record it.
       Move on to next song.
       Do this a bunch of times.
+
+      Create shiny app.
