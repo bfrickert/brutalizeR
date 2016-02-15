@@ -8,6 +8,7 @@ How is that coefficient different from the coefficient that must be applied to, 
 And what kind of *brutality.coef* must be applied to Morbid Angel and Obituary songs to make "Vacation" appear as a **death metal** song to that same support vector machine?
 
 TODO: 
+      ```
       More Black Metal?
 
       Losts of new songs created. Amalgam of Vacation and x*black.metal.song
@@ -18,3 +19,4 @@ TODO:
       Do this a bunch of times.
 
       Create shiny app.
+      ```
