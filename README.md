@@ -9,10 +9,6 @@ And what kind of *brutality.coef* must be applied to Morbid Angel and Obituary s
 
 TODO: 
       ```
-      More Black Metal?
-
-      Losts of new songs created. Amalgam of Vacation and x*black.metal.song
-      x <- seq(1:10, by=.25)
       When does SVM label it `is.black.metal`?
       Record it.
       Move on to next song.
