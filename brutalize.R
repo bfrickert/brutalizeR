@@ -1,12 +1,46 @@
 library(pacman)
-p_load(tuneR, zoo)
+p_load(tuneR)
 
 get.matrix <- function(f, dir='wavs/black/', t='black'){
   sndObj <- readWave(paste(dir,'/',f,sep=''))
-  s1 <- sndObj@left
-  s1 <- s1 / 2^(sndObj@bit -1)
+  Wobjm <- mono(sndObj, "left") # extract the left channel
+  # and downsample to 11025 samples/sec.:
+  Wobjm11 <- downsample(Wobjm, sndObj@samp.rate)
+  # extract a part of the signal interactively (click for left/right limits):
   
-  metal.df <- data.frame(s1)
+  ## Not run:
+  #Wobjm11s <- extractWave(Wobjm11)
+  ## End(Not run)
+  
+  # or extract some values reproducibly
+  Wobjm11s <- extractWave(Wobjm11, from=0, to=1000000)
+  
+  # calculating periodograms of sections each consisting of 1024 observations,
+  # overlapping by 512 observations:
+  WspecObject <- periodogram(Wobjm11s, normalize = TRUE, width = 1024, overlap = 512)
+  # Let's look at the first periodogram:
+  plot(WspecObject, xlim = c(0, 2000), which = 1)
+  # or a spectrogram
+  image(WspecObject, ylim = c(0, 1000))
+  # calculate the fundamental frequency:
+  ff <- FF(WspecObject)
+  print(ff)
+  # derive note from FF given diapason a'=440
+  notes <- noteFromFF(ff, 440)
+  # smooth the notes:
+  snotes <- smoother(notes)
+  # outcome should be 0 for diapason "a'" and -12 (12 halftones lower) for "a"
+  print(snotes)
+  #snotes <- na.omit(snotes)
+  notenames(na.omit(snotes), language = 'english')
+  # plot melody and energy of the sound:
+  m <- melodyplot(WspecObject, snotes)
+  m$notenames
+  
+  # apply some quantization (into 8 parts):
+  #qnotes <- quantize(snotes[!is.na(snotes)], WspecObject@energy[!is.na(snotes)], parts = 40000)
+  snotes[is.na(snotes)] <- 0
+  metal.df <- data.frame(snotes, WspecObject@energy)
   file.name <- gsub('.wav','', f)
   write.table(metal.df, paste('matrices/', t, '/', file.name,'.array.csv',sep=''), row.names = F, sep=',', col.names = F)
 }
@@ -33,7 +67,7 @@ sapply(files, function(x){
 
 
 create.new.files <- function(x){
-  s <- seq(from=.25, to=10, by=.25)
+  s <- seq(from=1, to=40, by=1)
   
   file.name <- paste('wavs/newfiles/', gsub('.wav','',x), sep='')
   print(file.name)
