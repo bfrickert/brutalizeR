@@ -8,11 +8,5 @@ How is that coefficient different from the coefficient that must be applied to, 
 And what kind of *brutality.coef* must be applied to Morbid Angel and Obituary songs to make "Vacation" appear as a **death metal** song to that same support vector machine?
 
 TODO: 
-      
-
-      When does SVM label it `is.black.metal`?
-      Record it.
-      Move on to next song.
-      Do this a bunch of times.
 
       Create shiny app.
