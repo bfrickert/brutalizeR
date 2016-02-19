@@ -10,6 +10,22 @@ shinyServer(function(input, output) {
     
   }, deleteFile = FALSE)
   
+  output$vacation.looks.like <- renderImage({
+    list(src = './viz/vacation.looks.like.png',
+         alt = "10 secs of 'Vacation'",
+         width=400,
+         height=250)
+    
+  }, deleteFile = FALSE)
+  
+  output$black.metal.looks.like <- renderImage({
+    list(src = './viz/black.metal.looks.like.png',
+         alt = "10 secs of Black Metal",
+         width=400,
+         height=250)
+    
+  }, deleteFile = FALSE)
+  
   output$brutality.coefs <- renderTable({
     df <- coefs
     df$coef <- as.character(df$coef)

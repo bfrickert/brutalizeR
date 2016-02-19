@@ -4,79 +4,16 @@ library(arules)
 library(arulesSequences)
 library(Matrix)
 
-get.matrix <- function(f, dir='wavs/black/', t='black'){
-  
-  sndObj <- readWave(paste(dir,'/',f,sep=''))
-  
-  file.name <- gsub('.wav','', f)
-  
-  s1 <- sndObj@left
-  s1 <- s1 / 2^(sndObj@bit -1)
-  
-  s2 <- sndObj@right
-  s2 <- s2 / 2^(sndObj@bit -1)
-  
-  n <- length(s1)
-  timeArray <- (0:(n-1)) / sndObj@samp.rate
-  timeArray <- timeArray  * 1000 #scale to milliseconds
-  #plot(timeArray, s1[1:length(timeArray)], type='l', col='black', xlab='Time (ms)', ylab='Amplitude')
-  
-  p <- fft(s1)
-  
-  # nUniquePts <- ceiling((n+1)/2)
-  # p <- p[1:nUniquePts] #select just the first half since the second half
-  # is a mirror image of the first
-  p <- abs(p)  #take the absolute value, or the magnitude
-  
-  p <- p / n #scale by the number of points so that
-  # the magnitude does not depend on the length
-  # of the signal or on its sampling frequency
-  p <- p^2  # square it to get the power
-  
-  # multiply by two (see technical document for details)
-  # odd nfft excludes Nyquist point
-  if (n %% 2 > 0){
-    p[2:length(p)] <- p[2:length(p)]*2 # we've got odd number of points fft
-  } else {
-    p[2: (length(p) -1)] <- p[2: (length(p) -1)]*2 # we've got even number of points fft
-  }
-  
-  freqArray <- (0:(length(s1))) * (sndObj@samp.rate / n) #  create the frequency array
-  
-  #plot(freqArray/1000, 10*log10(p), type='l', col='black', xlab='Frequency (kHz)', ylab='Power (dB)')
-  
-  #metal.df <- data.frame(s1[2:length(timeArray)], 10*log10(p)[2:length(timeArray)])
-  metal.df <- data.frame(s1)
-  #names(metal.df) <- c('amp', 'freq')
-  
-  write.table(metal.df, paste('matrices/', t, '/', file.name,'.array.csv',sep=''), row.names = F, sep=',', col.names = F)
-}
-
-files <- list.files('wavs/black')
-sapply(files, function(x){
-  
-  get.matrix(x, dir='wavs/black',t='black')
-})
-files <- list.files('wavs/death')
-sapply(files, function(x){
-  
-  get.matrix(x, dir='wavs/death',t='death')
-})
-files <- list.files('wavs/gogos')
-sapply(files, function(x){
-  
-  get.matrix(x, dir='wavs/gogos',t='gogos')
-})
-files <- list.files('wavs/vacation')
-sapply(files, function(x){
-  
-  get.matrix(x, dir='wavs/vacation',t='vacation')
-})
-
 
 
 sndObj <- readWave('wavs/black/burzum.det.som.wav')
+t <- ts(sndObj@left, frequency = 44100)
+plot.ts(t, ylab='', main="10 seconds of Burzum's 'Det Som Engang Var'")
+vac <- readWave('wavs/vacation/vacation.wav')
+t.vac <- ts(vac@left, frequency = 44100)
+plot.ts(t.vac, ylab='', main="10 seconds of The Go-Go's 'Vacation'")
 
+vac <- readWave('wavs/vacation/vacation.wav')
 
 Wobjm <- mono(sndObj, "left") # extract the left channel
 # and downsample to 11025 samples/sec.:
@@ -128,7 +65,7 @@ oscillo(sndObj,f=22050,k=4,j=1,title=TRUE,colwave="black",
         coltitle="yellow",collab="red",colline="white",
         colaxis="blue",coly0="grey50")
 
-oscillo(sndObj,f=22050)
+oscillo(sndObj,f=44101)
 par(new=TRUE)
 env(sndObj,f=22050,colwave=2)
 
