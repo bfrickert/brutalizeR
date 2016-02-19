@@ -7,8 +7,12 @@ shinyUI(fluidPage(theme='bootstrap.css',
   
   mainPanel(
       br(),br(),br(),br(),br(),br(),br(),br(),
-      HTML("<h2 class='XXIIBlackmetalWarrior'>A Satanic Time Series Study of Variance</h2>"),
-      HTML("Here is a <span class='XXIIBlackmetalWarrior'>pole cat</span> made of glass."),
+      HTML("<h2 class='XXIIBlackmetalWarrior'>A Satanic Study of Time Series Variance</h2>"),
+      column(12, HTML("<h5>Is there a way to quantify the <strong>brutality</strong>
+            of a black metal song?<br /><br />Probably not. However, if there were a way, it would 
+            probably be a measurement of what ratio of the song, when blended with <i>Vacation</i> 
+            by the 
+           <strong>Go-Go's</strong> statistically turns <i>Vacation</i> into a black metal song.</h5>")),
       tableOutput('brutality.coefs')
   )
   )
