@@ -10,10 +10,6 @@ shinyServer(function(input, output) {
     
   }, deleteFile = FALSE)
   
-  output$font <- renderUI({
-    HTML("<div class='XXIIBlackmetalWarrior'><h3>Hornedeltat.</h3></div>")
-  })
-  
   output$brutality.coefs <- renderTable({
     df <- coefs
     df$coef <- as.character(df$coef)
