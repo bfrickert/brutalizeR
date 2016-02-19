@@ -16,7 +16,8 @@ shinyUI(fluidPage(theme='bootstrap.css',
             by the 
            <strong>Go-Go's</strong>, turns <i>Vacation</i> -- statistically speaking -- 
             into a black metal 
-                      song.</h5>")),
+                      song.</h5>
+            <h5>And what does a black metal song -- statistically speaking -- look like?</h5>")),
       tableOutput('brutality.coefs')
   )
   )
