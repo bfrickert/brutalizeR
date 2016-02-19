@@ -14,7 +14,8 @@ shinyUI(fluidPage(theme='bootstrap.css',
             probably be a measurement of what ratio of an individual black metal song, 
             when blended with <i>Vacation</i> 
             by the 
-           <strong>Go-Go's</strong> statistically turns <i>Vacation</i> into a black metal 
+           <strong>Go-Go's</strong>, turns <i>Vacation</i> -- statistically speaking -- 
+            into a black metal 
                       song.</h5>")),
       tableOutput('brutality.coefs')
   )
