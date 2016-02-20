@@ -1,11 +1,7 @@
 library(pacman)
 p_load(tuneR, pastecs, seewave, soundecology, neuralnet)
-library(arules)
-library(arulesSequences)
-library(Matrix)
 
-
-
+par(mfrow=c(1,1))
 sndObj <- readWave('wavs/black/burzum.det.som.wav')
 t <- ts(sndObj@left, frequency = 44100)
 plot.ts(t, ylab='', main="10 seconds of Burzum's 'Det Som Engang Var'")
@@ -13,91 +9,76 @@ vac <- readWave('wavs/vacation/vacation.wav')
 t.vac <- ts(vac@left, frequency = 44100)
 plot.ts(t.vac, ylab='', main="10 seconds of The Go-Go's 'Vacation'")
 
-vac <- readWave('wavs/vacation/vacation.wav')
 
-Wobjm <- mono(sndObj, "left") # extract the left channel
-# and downsample to 11025 samples/sec.:
-Wobjm11 <- downsample(Wobjm, 11025)
-# extract a part of the signal interactively (click for left/right limits):
 
-## Not run:
-#Wobjm11s <- extractWave(Wobjm11)
-## End(Not run)
+par(mfrow=c(1,2))
+inno <- readWave('wavs/black/emperor.inno.wav')
+oscillo(inno,f=44101, title="Amplitude of Emperor's\n'Inno Satanis'")
 
-# or extract some values reproducibly
-Wobjm11s <- extractWave(Wobjm11, from=0, to=100000)
+solar <- readWave('wavs/black/immortal.solarfall.wav')
+ifreq(solar,f=44100,main='Frequency of Immortal\'s\n\'Solarfall\'')
 
-# calculating periodograms of sections each consisting of 1024 observations,
-# overlapping by 512 observations:
+par(mfrow=c(1,1))
+sndObj <- readWave('wavs/gogos/lips.are.sealed.wav')
+Wobjm <- mono(sndObj, "left")
+Wobjm11 <- downsample(Wobjm, 44100)
+Wobjm11s <- extractWave(Wobjm11, from=0, to=4000000)
 WspecObject <- periodogram(Wobjm11s, normalize = TRUE, width = 1024, overlap = 512)
-# Let's look at the first periodogram:
-plot(WspecObject, xlim = c(0, 2000), which = 1)
-# or a spectrogram
-image(WspecObject, ylim = c(0, 1000))
-# calculate the fundamental frequency:
 ff <- FF(WspecObject)
-print(ff)
-# derive note from FF given diapason a'=440
 notes <- noteFromFF(ff, 440)
-# smooth the notes:
 snotes <- smoother(notes)
-# outcome should be 0 for diapason "a'" and -12 (12 halftones lower) for "a"
-print(snotes)
-snotes <- na.omit(snotes)
-notenames(snotes, language = 'english')
-# plot melody and energy of the sound:
-m <- melodyplot(WspecObject, snotes)
-m$notenames
+melodyplot(WspecObject, snotes, main="Melody Plot of The Go-Go's\n'Our Lips Are Sealed'")
+
+#########################################################################################
 
 # apply some quantization (into 8 parts):
-qnotes <- quantize(snotes, WspecObject@energy, parts = 8)
+qnotes <- quantize(snotes, WspecObject@energy, parts = 64)
 # an plot it, 4 parts a bar (including expected values):
-quantplot(qnotes, expected = rep(c(0, -12), each = 4), bars = 2)
+quantplot(qnotes, expected = rep(c(0, -12), each = 4), bars = 16)
 # now prepare for LilyPond
 qlily <- quantMerge(snotes, 4, 4, 2)
 qlily
 
 
-oscillo(sndObj, f=22050, k=2, j=2, byrow=T)
+oscillo(sndObj, f=44100, k=2, j=2, byrow=T)
 
 op<-par(bg="grey")
-oscillo(sndObj,f=22050,k=4,j=1,title=TRUE,colwave="black",
+oscillo(sndObj,f=44100,k=4,j=1,title=TRUE,colwave="black",
         coltitle="yellow",collab="red",colline="white",
         colaxis="blue",coly0="grey50")
 
 oscillo(sndObj,f=44101)
+oscillo(vac,f=44101)
 par(new=TRUE)
-env(sndObj,f=22050,colwave=2)
-
-ifreq(sndObj,f=22050,threshold=5)
+env(sndObj,f=44100,colwave=2)
 
 op<-par(mfrow=c(2,1))
-spec(sndObj,f=22050,type="l")
-meanspec(sndObj,f=22050,wl=512,type="l")
+spec(sndObj,f=44100,type="l")
+meanspec(sndObj,f=44100,wl=512,type="l")
 
 op <- par(op)
-spectro(sndObj,f=22050,wl=512,ovlp=50,zp=16,collevels=seq(-80,0,0.5))
+spectro(sndObj,f=44100,wl=512,ovlp=50,zp=16,collevels=seq(-80,0,0.5))
 
 op <- par(op)
-pellu2<-cutw(sndObj,f=22050,from=1,plot=FALSE)
-spectro(pellu2,f=22050,wl=512,ovlp=85,collevels=seq(-100,0,1),osc=TRUE,
+pellu2<-cutw(sndObj,f=44100,from=1,plot=FALSE)
+spectro(pellu2,f=44100,wl=512,ovlp=85,collevels=seq(-100,0,1),osc=TRUE,
         palette=reverse.heat.colors,colgrid="white", colwave="white",colaxis="white",
         collab="white", colbg="black")
 par(op)
 
-spectro3D(sndObj,f=22050,wl=512,ovlp=75,zp=16,maga=2)
+spectro3D(sndObj,f=44100,wl=512,ovlp=75,zp=16,maga=2)
 par(op)
 
 par(new=T)
-timer(sndObj,f=22050,threshold=5, ssmoth=900, bty="l",colval="blue")
+timer(sndObj,f=44100,threshold=5, ssmoth=900, bty="l",colval="blue")
 
 
 
-spectro(sndObj, f=22050, ovlp=50, palette=reverse.gray.colors.2, scale=FALSE)
+spectro(sndObj, f=44100, ovlp=50, palette=reverse.gray.colors.2, scale=FALSE)
 par(new=T)
-dfreq(sndObj.death, f=22050, ovlp=50, threshold=6, col="red", ann=FALSE, xaxs="i", yaxs="i")
-m<-dfreq(sndObj, f=22050, ovlp=50, threshold=6, col="red", ann=FALSE, xaxs="i", yaxs="i", plot=F)
-m.death<-dfreq(sndObj.death, f=22050, ovlp=50, threshold=6, col="red", ann=FALSE, xaxs="i", yaxs="i", plot=F)
+dfreq(sndObj.death, f=44100, ovlp=50, threshold=6, col="red", ann=FALSE, xaxs="i", yaxs="i")
+m<-dfreq(sndObj, f=44100, ovlp=50, threshold=6, col="red", ann=FALSE, xaxs="i", yaxs="i", plot=F)
+m.death<-dfreq(sndObj.death, f=44100, ovlp=50, threshold=6, col="red", ann=FALSE, xaxs="i", yaxs="i", plot=F)
 
 write.table(m[,1], 'freq.tsv', row.names = F, sep = '\t')
 x <- read_baskets(con=system.file('.', "freq.tsv", package = "arulesSequences"), 
@@ -124,8 +105,8 @@ points(res, pch=20)
 legend(0.5,3.6, "Frecuencia fundamental", pch=20, col="black", bty=0, cex=0.7)
 par(op)
 
-spec1 <- spec(sndObj, f=22050, at=0.2, plot=FALSE)
-spec2 <- spec(sndObj, f=22050, at=1.2, plot=FALSE)
+spec1 <- spec(sndObj, f=44100, at=0.2, plot=FALSE)
+spec2 <- spec(sndObj, f=44100, at=1.2, plot=FALSE)
 corspec(spec1, spec2, main="correlacion cruzada de espectros")
 
 m <- spec(wave=sndObj, wn ="hanning", f=sampfreq, norm=F, wl=512, plot=F, identify=T)

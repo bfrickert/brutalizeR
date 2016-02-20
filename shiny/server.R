@@ -26,6 +26,22 @@ shinyServer(function(input, output) {
     
   }, deleteFile = FALSE)
   
+  output$satanis.solarfall <- renderImage({
+    list(src = './viz/satanis.solarfall.png',
+         alt = "Satanis Solarfall",
+         width=400,
+         height=250)
+    
+  }, deleteFile = FALSE)
+  
+  output$lips.are.sealed <- renderImage({
+    list(src = './viz/lips.are.sealed.png',
+         alt = "Lips Are Sealed Melody",
+         width=400,
+         height=250)
+    
+  }, deleteFile = FALSE)
+  
   output$brutality.coefs <- renderTable({
     df <- coefs
     df$coef <- as.character(df$coef)
