@@ -90,5 +90,3 @@ theme(axis.line = element_line(colour = "black"),
   labs(x="Variance", y="Density", title="Density Plot of Mean Variances of 
        Representative Black
        Metal and Go-Go's Songs")
-
-#########################################################################################

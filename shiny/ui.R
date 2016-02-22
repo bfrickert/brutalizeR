@@ -77,6 +77,9 @@ to make the difference between means zero
                       black metal songs next to each song's computed <strong>brutality
                       coefficient</strong>. Behexen's <i>Night of the Blasphemy</i> has the
                       lowest coefficient, and is therefore the most brutal black metal song.</h5>")),
+            column(12,HTML("<h5>Check out Watain's <i>Malfeitor</i> -- with a <strong>brutality
+                           coefficient</strong> of 0.728879 -- blended with <i>Vacation</i>
+                           <a class='XXIIBlackmetalWarrior' href='https://soundcloud.com/lieutenant-beefheart/black-metal-blended-with-the'>here</a>.</h5>")),
             tableOutput('brutality.coefs')
   )
   )
