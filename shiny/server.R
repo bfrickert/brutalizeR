@@ -48,12 +48,18 @@ shinyServer(function(input, output) {
     
   }, deleteFile = FALSE)
   
+  output$mean.distributions <- renderImage({
+    list(src = './viz/mean.distributions.png',
+         alt = "Equation")
+    
+  }, deleteFile = FALSE)
+  
   output$brutality.coefs <- renderTable({
     df <- coefs
     df$coef <- as.character(df$coef)
     df[is.na(df$coef),]$coef <- 'Inf.'
     names(df) <- c('index', 'file.name', 'brutality.coefficient')
-    select(df, file.name, brutality.coefficient)
+    dplyr::select(df, file.name, brutality.coefficient)
   })
   
 })

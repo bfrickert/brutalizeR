@@ -23,6 +23,14 @@ gogo.list <- lapply(gogo.files, function(x){
   var.each.sec(x, dir='wavs/gogos')
 })
 
+var.each.file <- function(f, dir='wavs/black'){
+  sndObj <- readWave(paste(dir,'/',f,sep=''))
+  return(var(sndObj@left))
+}
+vars <-sapply(gogo.files, function(x){
+  var.each.file(x,dir='wavs/gogos')
+})
+
 set.seed(666)
 black.samples <- replicate(100000, mean(sample(unlist(black.list),100,replace = F)))
 gogo.samples <- replicate(100000, mean(sample(unlist(gogo.list),100,replace = F)))
