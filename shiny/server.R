@@ -42,6 +42,12 @@ shinyServer(function(input, output) {
     
   }, deleteFile = FALSE)
   
+  output$equation <- renderImage({
+    list(src = './viz/black.metal.equation.gif',
+         alt = "Equation")
+    
+  }, deleteFile = FALSE)
+  
   output$brutality.coefs <- renderTable({
     df <- coefs
     df$coef <- as.character(df$coef)

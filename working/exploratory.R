@@ -1,5 +1,5 @@
 library(pacman)
-p_load(tuneR, pastecs, seewave, soundecology, neuralnet)
+p_load(tuneR, seewave, ggplot2, plyr, grid)
 
 par(mfrow=c(1,1))
 sndObj <- readWave('wavs/black/burzum.det.som.wav')
@@ -8,8 +8,6 @@ plot.ts(t, ylab='', main="10 seconds of Burzum's 'Det Som Engang Var'")
 vac <- readWave('wavs/vacation/vacation.wav')
 t.vac <- ts(vac@left, frequency = 44100)
 plot.ts(t.vac, ylab='', main="10 seconds of The Go-Go's 'Vacation'")
-
-
 
 par(mfrow=c(1,2))
 inno <- readWave('wavs/black/emperor.inno.wav')
@@ -29,7 +27,68 @@ notes <- noteFromFF(ff, 440)
 snotes <- smoother(notes)
 melodyplot(WspecObject, snotes, main="Melody Plot of The Go-Go's\n'Our Lips Are Sealed'")
 
+
+q5 <- quantile(x,.05)
+q95 <- quantile(x,.95)
+medx <- median(x)
+x.dens <- density(x)
+df.dens <- data.frame(x = x.dens$x, y = x.dens$y)
+p + geom_area(data = subset(df.dens, x >= q5 & x <= q95), 
+              aes(x=x,y=y), fill = 'blue') +
+  geom_vline(xintercept = medx)
+
+
+
+df <- data.frame(c(rep('black metal', 100000), rep('go-go\'s', 100000)),
+c(black.samples, gogo.samples))
+names(df) <- c('type', 'var')
+var.dat <- ddply(df, "type", summarise, var.mean=mean(var))
+quantile(black.samples, .05)
+quantile(black.samples, .95)
+quantile(gogo.samples, .05)
+quantile(gogo.samples, .95)
+quant.dat <- data.frame(rbind(c('Black Metal', quantile(black.samples, .05), quantile(black.samples, .95)),
+                   c('Go-Go\'s', quantile(gogo.samples, .05), quantile(gogo.samples, .95))))
+names(quant.dat) <- c('type','point.5', 'point.95')                   
+black.dens <- density(black.samples)
+gogo.dens <- density(gogo.samples)
+black.dens.df <- data.frame(type='Black Metal', x=black.dens$x,y=black.dens$y)
+gogo.dens.df <- data.frame(type='Go-Go\'s', x=gogo.dens$x,y=gogo.dens$y)
+dens.df <- cbind(black.dens.df, gogo.dens.df)
+
+ggplot(df, aes(x=var, fill=type)) + scale_fill_manual(values=c("white", "white")) + 
+  geom_density(alpha=.3) +
+  geom_area(data = subset(black.dens.df, x >= quantile(black.samples, .05) & 
+                            x <= quantile(black.samples, .95)),  
+            aes(x=x,y=y), fill = 'black') +
+  geom_area(data = subset(gogo.dens.df, x >= quantile(gogo.samples, .05) & 
+                            x <= quantile(gogo.samples, .95)),  
+            aes(x=x,y=y), fill = 'purple') +
+  geom_vline(data=var.dat, aes(xintercept=var.mean,  colour=type),
+             linetype="dashed", size=1) + scale_color_manual(values=c("red", "green"))  + 
+  geom_vline(data=var.dat, aes(xintercept=var.mean,  colour=type),
+             linetype="dashed", size=1) + scale_color_manual(values="yellow")  + 
+  theme_bw()  +
+theme(axis.line = element_line(colour = "black"),
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(),
+      panel.border = element_blank(),
+      panel.background = element_blank())
+
 #########################################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # apply some quantization (into 8 parts):
 qnotes <- quantize(snotes, WspecObject@energy, parts = 64)
