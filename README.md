@@ -5,4 +5,4 @@ This repo dares to quantify the *brutality coefficient* by which a Satyricon son
 
 It all so dares to investigate how that number differs from the coefficients that must be applied to, say, a song by Watain or Mayhem, with the understanding that the brutality of a song is indirectly proportional to the size of the **brutality coefficient**.
 
-This repo contains the code that comprises and supports the landmark [brutalizeR](bfrickert.shinyapps.io/brutalizeR) data app.
+This repo contains the code that comprises and supports the landmark [brutalizeR](https://bfrickert.shinyapps.io/brutalizeR) data app.
