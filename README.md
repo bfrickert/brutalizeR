@@ -1,12 +1,8 @@
-#brutalizeR (WORK IN PROGRESS)
-Testing the potency of representative samples of the black metal and death metal musical subgenres.
+#brutalizeR
+Testing the potency of representative sample songs from the black metal musical subgenre.
 
-What is the *brutality.coef* by which a Satyricon song must be multiplied and added to "Vacation" by the Go-Go's before "Vacation" is identified as **black metal** by a support vector machine?
+This repo dares to quantify the *brutality coefficient* by which a Satyricon song must be multiplied and added to "Vacation" by the Go-Go's before "Vacation" -- statistically speaking -- looks like **black metal**?
 
-How is that coefficient different from the coefficient that must be applied to, say, a song by Watain or Mayhem?
+It all so dares to investigate how that number differs from the coefficients that must be applied to, say, a song by Watain or Mayhem, with the understanding that the brutality of a song is indirectly proportional to the size of the **brutality coefficient**.
 
-And what kind of *brutality.coef* must be applied to Morbid Angel and Obituary songs to make "Vacation" appear as a **death metal** song to that same support vector machine?
-
-TODO: 
-
-      Create shiny app.
+This repo contains the code that comprises and supports the landmark [brutalizeR](bfrickert.shinyapps.io/brutalizeR) data app.
