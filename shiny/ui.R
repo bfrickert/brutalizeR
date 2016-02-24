@@ -85,8 +85,13 @@ to make the difference between means zero.
                       <br /><br />
                       Below you can see a list of file names representing 10-second samples of
                       black metal songs next to each song's computed <strong>brutality
-                      coefficient</strong>. Behexen's <i>Night of the Blasphemy</i> has the
-                      lowest coefficient, and is therefore the most brutal black metal song.</h5>")),
+                      coefficient</strong> ordered from least to greatest. Behexen's <i>Night of the Blasphemy</i> has the
+                      lowest coefficient, and is therefore the most brutal black metal song sampled,
+                      while Darkthrone, Judas Iscariot and Mayhem each have a song with an 
+                      infinite <strong>brutality coefficient</strong>. That means that no matter how large 
+                      a <strong>brutality coefficient</strong> is slapped on one of these songs, 
+                      it won't make <i>Vacation</i>'s variance equal to the mean variance of our sampled black metal songs.
+                      These songs just aren't very brutal, nevermind that one is named <i>Chainsaw Gutsfuck</i>.</h5>")),
             column(12,HTML("<h5>Check out Watain's <i>Malfeitor</i> -- with a <strong>brutality
                            coefficient</strong> of 0.728879 -- blended with <i>Vacation</i>
                            <a class='XXIIBlackmetalWarrior' href='https://soundcloud.com/lieutenant-beefheart/black-metal-blended-with-the'>here</a>.</h5>")),
