@@ -67,6 +67,7 @@ of each song's left channel output was computed, and then sampling the distribut
 mean of these .1 second variances, the variance difference between the Go-Go's music 
                      and black metal was charted and quantified.</h5>")),
       div(imageOutput('mean.distributions'),style='height:700px'),
+      br(),br(),
       column(12, HTML("<h5>Right away, you may notice that <i>Vacation</i> is a bit of an 
                       outlier from the rest of the samples from the Go-Go's catalog. As
                       a matter of fact, the mean variance of the song falls well within
