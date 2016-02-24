@@ -10,11 +10,12 @@ shinyUI(fluidPage(theme='bootstrap.css',
       HTML("<h2 class='XXIIBlackmetalWarrior'>A Satanic Study of Time Series Variance</h2>"),
       column(12, HTML("<h5>Like most genres of music, Black Metal aspires to deliver
 a direct Satanic message. But unlike most other forms of music, it also aspires to being 
-unlistenable. This feature of Black Metal is often identified as <strong>brutality</strong>.
-But what most interests scientists is whether there exists some way that <strong>the 
+unlistenable -- the shriekings of evil, monochromatic clowns. This feature of Black Metal 
+is often identified as <strong>brutality</strong>.
+And what most interests scientists want to answer is: <strong>can the 
 sonic brutality of a Black Metal
-song can be quantified?</strong><br /><br />And without doubt there doesn't.<br /><br />However, 
-if there were a way, it would 
+song can be quantified?</strong><br /><br />In short, it can't.<br /><br />But if it could, 
+it would 
             probably be a measurement of what ratio of an individual black metal song, 
             when blended with <i>Vacation</i> 
             by the 
